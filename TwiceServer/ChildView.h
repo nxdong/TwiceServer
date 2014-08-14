@@ -42,6 +42,8 @@ public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg LRESULT OnAddToList(WPARAM, LPARAM);
+	afx_msg LRESULT OnRemoveFromList(WPARAM, LPARAM);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg LRESULT OnOpenShellDialog(WPARAM, LPARAM);
 };
 

