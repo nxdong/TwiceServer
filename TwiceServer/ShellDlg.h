@@ -1,11 +1,12 @@
 
 #pragma once
 #include "resource.h"
-
+#include "IOCPServer.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CShellDlg dialog
-
+class CIOCPServer;
+struct ClientContext;
 class CShellDlg : public CDialog
 {
 	// Construction
@@ -18,7 +19,7 @@ public:
 	CEdit	m_edit;
 	//}}AFX_DATA
 
-
+	CString m_save;
 	// Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CShellDlg)

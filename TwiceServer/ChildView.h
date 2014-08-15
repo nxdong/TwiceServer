@@ -4,9 +4,10 @@
 
 
 #pragma once
-
+#include "ShellDlg.h"
  class CIOCPServer;
  struct ClientContext;
+
 // CChildView ´°¿Ú
 
 class CChildView : public CWnd
@@ -45,5 +46,7 @@ public:
 	afx_msg LRESULT OnRemoveFromList(WPARAM, LPARAM);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg LRESULT OnOpenShellDialog(WPARAM, LPARAM);
+	void SendSelectCommand(PBYTE pData, UINT nSize);
+	afx_msg void OnListctrlmenuShell();
 };
 

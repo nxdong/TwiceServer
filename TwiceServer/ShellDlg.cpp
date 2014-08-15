@@ -66,6 +66,7 @@ BOOL CShellDlg::PreTranslateMessage(MSG* pMsg)
 			str += "\r\n";
 			m_iocpServer->Send(m_pContext, (LPBYTE)str.GetBuffer(0) + m_nCurSel, str.GetLength() - m_nCurSel);
 			m_nCurSel = m_edit.GetWindowTextLength();
+			GotoDlgCtrl( GetDlgItem(IDC_EDIT));
 		}
 		// 限制VK_BACK
 		if (pMsg->wParam == VK_BACK && pMsg->hwnd == m_edit.m_hWnd)
@@ -153,6 +154,8 @@ void CShellDlg::ResizeEdit()
 	rectEdit.top = 0;
 	rectEdit.right = rectClient.right;
 	rectEdit.bottom = rectClient.bottom;
+	if (m_edit.m_hWnd == NULL)
+		return;
 	m_edit.MoveWindow(&rectEdit);
 }
 
@@ -182,7 +185,7 @@ HBRUSH CShellDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	if ((pWnd->GetDlgCtrlID() == IDC_EDIT) && (nCtlColor == CTLCOLOR_EDIT))
 	{
-		COLORREF clr = RGB(255, 255, 255);
+		COLORREF clr = RGB(0, 255, 0);
 		pDC->SetTextColor(clr);   //设置白色的文本
 		clr = RGB(0,0,0);
 		pDC->SetBkColor(clr);     //设置黑色的背景
