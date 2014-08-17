@@ -48,5 +48,7 @@ public:
 	afx_msg LRESULT OnOpenShellDialog(WPARAM, LPARAM);
 	void SendSelectCommand(PBYTE pData, UINT nSize);
 	afx_msg void OnListctrlmenuShell();
+	afx_msg void OnListctrlmenuFilemanager();
+	afx_msg void OnListctrlmenuDisconnect();
 };
 

