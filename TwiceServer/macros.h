@@ -153,4 +153,8 @@ typedef struct
 	bool			bIsWebCam;		// 是否有摄像头
 	DWORD			dwSpeed;		// 网速
 }LOGININFO;
-
+typedef struct 
+{
+	DWORD	dwSizeHigh;
+	DWORD	dwSizeLow;
+}FILESIZE;

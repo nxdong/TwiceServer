@@ -96,6 +96,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="res\1.cur" />
+    <None Include="res\2.cur" />
+    <None Include="res\3.cur" />
+    <None Include="res\4.cur" />
+    <None Include="res\bitmap1.bmp" />
+    <None Include="res\Bitmap_4.bmp" />
+    <None Include="res\Bitmap_5.bmp" />
+    <None Include="res\cursor2.cur" />
+    <None Include="res\dot.cur" />
+    <None Include="res\toolbar1.bmp" />
+    <None Include="res\toolbar2.bmp" />
     <None Include="res\TwiceServer.ico" />
     <None Include="res\TwiceServer.rc2" />
   </ItemGroup>
@@ -104,6 +115,7 @@
     <ClInclude Include="ChildView.h" />
     <ClInclude Include="FileManagerDlg.h" />
     <ClInclude Include="FileTransferModeDlg.h" />
+    <ClInclude Include="InputDlg.h" />
     <ClInclude Include="iocpMapper.h" />
     <ClInclude Include="IOCPServer.h" />
     <ClInclude Include="macros.h" />
@@ -120,6 +132,7 @@
     <ClCompile Include="ChildView.cpp" />
     <ClCompile Include="FileManagerDlg.cpp" />
     <ClCompile Include="FileTransferModeDlg.cpp" />
+    <ClCompile Include="InputDlg.cpp" />
     <ClCompile Include="IOCPServer.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="ShellDlg.cpp" />

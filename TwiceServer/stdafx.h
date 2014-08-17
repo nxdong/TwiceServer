@@ -37,14 +37,12 @@
 
 #include <afxcontrolbars.h>     // 功能区和控件条的 MFC 支持
 
-
-
 #include "IOCPServer.h"
 #include "macros.h"
 #include "vfw.h" // DrawDibOpen
 #pragma comment(lib, "vfw32.lib")
 
-
+#define MAKEINT64(low, high) ((unsigned __int64)(((DWORD)(low)) | ((unsigned __int64)((DWORD)(high))) << 32))
 
 
 

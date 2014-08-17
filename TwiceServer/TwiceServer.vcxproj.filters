@@ -22,6 +22,39 @@
     <None Include="res\TwiceServer.ico">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="res\toolbar1.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\Bitmap_4.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\Bitmap_5.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\toolbar2.bmp">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\1.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\2.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\3.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\cursor2.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\4.cur">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\dot.cur">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TwiceServer.h">
@@ -66,6 +99,9 @@
     <ClInclude Include="FileTransferModeDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="InputDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TwiceServer.cpp">
@@ -96,6 +132,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="FileTransferModeDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InputDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

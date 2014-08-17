@@ -6,6 +6,7 @@
 #include "FileManagerDlg.h"
 #include "FileTransferModeDlg.h"
 #include "InputDlg.h"
+#include "resource.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
