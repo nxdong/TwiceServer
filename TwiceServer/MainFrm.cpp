@@ -4,8 +4,8 @@
 
 #include "stdafx.h"
 #include "TwiceServer.h"
-
 #include "MainFrm.h"
+#include "FileManagerDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -166,9 +166,9 @@ void CMainFrame::ProcessReceiveComplete(ClientContext *pContext)
 	{
 		switch (pContext->m_Dialog[0])
 		{
-// 		case FILEMANAGER_DLG:
-// 			((CFileManagerDlg *)dlg)->OnReceiveComplete();
-// 			break;
+		case FILEMANAGER_DLG:
+			((CFileManagerDlg *)dlg)->OnReceiveComplete();
+			break;
 // 		case SCREENSPY_DLG:
 // 			((CScreenSpyDlg *)dlg)->OnReceiveComplete();
 // 			break;

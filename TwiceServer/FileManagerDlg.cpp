@@ -1155,7 +1155,10 @@ void CFileManagerDlg::ShowMessage(char *lpFmt, ...)
 	memset(buff, 0, sizeof(buff));
 
 	vsprintf(buff, lpFmt, arglist);
-	m_wndStatusBar.SetPaneText(0, buff);
+	if (m_wndStatusBar.m_hWnd == NULL)
+		return;
+	m_wndStatusBar.SetWindowText(buff);
+	//m_wndStatusBar.SetPaneText(0, buff);
     va_end( arglist );
 }
 

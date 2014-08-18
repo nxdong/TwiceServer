@@ -5,6 +5,7 @@
 
 #pragma once
 #include "ShellDlg.h"
+#include "FileManagerDlg.h"
  class CIOCPServer;
  struct ClientContext;
 
@@ -46,6 +47,7 @@ public:
 	afx_msg LRESULT OnRemoveFromList(WPARAM, LPARAM);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg LRESULT OnOpenShellDialog(WPARAM, LPARAM);
+	LRESULT OnOpenManagerDialog(WPARAM wParam, LPARAM lParam);  //File Manager
 	void SendSelectCommand(PBYTE pData, UINT nSize);
 	afx_msg void OnListctrlmenuShell();
 	afx_msg void OnListctrlmenuFilemanager();

